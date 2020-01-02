@@ -211,18 +211,24 @@ func DeleteTables(tablename string) error {
 	})
 }
 
-func SearchAll(key string) error {
+func SearchAll(key string, isKey bool) error {
 	return Db.View(func(tx *bolt.Tx) error {
 		// Assume bucket exists and has keys
 		b := tx.Bucket([]byte(db))
 
 		c := b.Cursor()
 
+		var matched bool
+
 		for k, v := c.First(); k != nil; k, v = c.Next() {
 			// if strings.Contains(string(k), key) {
 			// 	fmt.Printf("key=%s, value=%s\n", k, v)
 			// }
-			matched, _ := regexp.MatchString(key, string(k))
+			if isKey {
+				matched, _ = regexp.MatchString(key, string(v))
+			} else {
+				matched, _ = regexp.MatchString(key, string(k))
+			}
 
 			if matched {
 				fmt.Printf("key=%s, value=%s\n", k, v)
@@ -239,7 +245,7 @@ func SearchPrefix(key string) error {
 		c := tx.Bucket([]byte(db)).Cursor()
 
 		prefix := []byte(key)
-		for k, v := c.Seek(prefix); k != nil && bytes.HasPrefix(k, prefix); k, v = c.Next() {
+		for k, v := c.Seek(prefix); v != nil && bytes.HasPrefix(v, prefix); k, v = c.Next() {
 			fmt.Printf("key=%s, value=%s\n", k, v)
 		}
 

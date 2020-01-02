@@ -66,7 +66,7 @@ func Refresh(pathname string, wg *sync.WaitGroup) error {
 		if fi.IsDir() {
 			dnum++
 			fullDir := pathname + string(os.PathSeparator) + fi.Name()
-			go AddKeyValueBatch(fmt.Sprintf("%d %s", dnum, fi.Name()), fmt.Sprintf("D|%s", fullDir), wg)
+			go AddKeyValueBatch(fmt.Sprintf("%d %s", dnum, fi.Name()), fmt.Sprintf("%s|D", fullDir), wg)
 			// log.Infoln("dir ", fullDir)
 			fmt.Printf("\r Dir %d File %d Goroutine %d D|%s", dnum, num, runtime.NumGoroutine(), fi.Name())
 			err = Refresh(fullDir, wg)
@@ -77,7 +77,7 @@ func Refresh(pathname string, wg *sync.WaitGroup) error {
 		} else {
 			num++
 			fullName := pathname + string(os.PathSeparator) + fi.Name()
-			go AddKeyValueBatch(fmt.Sprintf("%d %s", num, fi.Name()), fmt.Sprintf("F|%s", fullName), wg)
+			go AddKeyValueBatch(fmt.Sprintf("%d %s", num, fi.Name()), fmt.Sprintf("%s|F", fullName), wg)
 			// fmt.Printf("\r %d ; hhhhh", num)
 			// log.Debugln("file ", fullName)
 			fmt.Printf("\r Dir %d File Goroutine %d %d F|%s", dnum, num, runtime.NumGoroutine(), fi.Name())

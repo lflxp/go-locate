@@ -33,6 +33,7 @@ var (
 	logLevel bool
 	all      bool
 	info     string
+	isKey    bool
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -54,7 +55,7 @@ to quickly create a Cobra application.`,
 		}
 		now := time.Now()
 		if !all {
-			err := pkg.SearchAll(info)
+			err := pkg.SearchAll(info, isKey)
 			if err != nil {
 				log.Errorln(err)
 			}
@@ -95,7 +96,8 @@ func init() {
 
 	// 日志级别
 	rootCmd.PersistentFlags().BoolVarP(&logLevel, "debug", "v", false, "是否debug日志输出")
-	rootCmd.Flags().BoolVarP(&all, "all", "a", false, "扫描方式： 默认全表扫描，false为prefix扫描")
+	rootCmd.Flags().BoolVarP(&all, "all", "a", false, "扫描方式： 默认全表扫描，true为prefix扫描")
+	rootCmd.Flags().BoolVarP(&isKey, "isKey", "I", false, "扫描方式： 默认按Key键进行扫描，true为value扫描")
 	rootCmd.Flags().StringVarP(&info, "info", "i", "", "support regexp, check message,default: ''")
 }
 

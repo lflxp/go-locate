@@ -37,7 +37,7 @@ var (
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "searchf",
+	Use:   "go-locate",
 	Short: "A brief description of your application",
 	Long: `A longer description that spans multiple lines and likely contains
 examples and usage of using your application. For example:
@@ -87,7 +87,7 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.searchf.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.go-locate.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -112,9 +112,9 @@ func initConfig() {
 			os.Exit(1)
 		}
 
-		// Search config in home directory with name ".searchf" (without extension).
+		// Search config in home directory with name ".go-locate" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".searchf")
+		viper.SetConfigName(".go-locate")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match

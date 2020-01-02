@@ -1,4 +1,4 @@
-# searchf
+# go-locate
 
 # TODO
 
@@ -25,8 +25,8 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.
 
 Usage:
-  searchf [flags]
-  searchf [command]
+  go-locate [flags]
+  go-locate [command]
 
 Available Commands:
   count       count数据
@@ -36,13 +36,13 @@ Available Commands:
 
 Flags:
   -a, --all             扫描方式： 默认全表扫描，false为prefix扫描
-      --config string   config file (default is $HOME/.searchf.yaml)
+      --config string   config file (default is $HOME/.go-locate.yaml)
   -v, --debug           是否debug日志输出
-  -h, --help            help for searchf
+  -h, --help            help for go-locate
   -i, --info string     support regexp, check message,default: ''
   -t, --toggle          Help message for toggle
 
-Use "searchf [command] --help" for more information about a command.
+Use "go-locate [command] --help" for more information about a command.
 ```
 
 #### Contribution

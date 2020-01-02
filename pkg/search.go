@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"runtime"
 	"sync"
 	"time"
 
@@ -67,7 +68,7 @@ func Refresh(pathname string, wg *sync.WaitGroup) error {
 			fullDir := pathname + string(os.PathSeparator) + fi.Name()
 			go AddKeyValueBatch(fmt.Sprintf("%d %s", dnum, fi.Name()), fmt.Sprintf("D|%s", fullDir), wg)
 			// log.Infoln("dir ", fullDir)
-			fmt.Printf("\r Dir %d File %d D|%s", dnum, num, fi.Name())
+			fmt.Printf("\r Dir %d File %d Goroutine %d D|%s", dnum, num, runtime.NumGoroutine(), fi.Name())
 			err = Refresh(fullDir, wg)
 			if err != nil {
 				log.Errorln("read dir fail:", err)
@@ -79,7 +80,7 @@ func Refresh(pathname string, wg *sync.WaitGroup) error {
 			go AddKeyValueBatch(fmt.Sprintf("%d %s", num, fi.Name()), fmt.Sprintf("F|%s", fullName), wg)
 			// fmt.Printf("\r %d ; hhhhh", num)
 			// log.Debugln("file ", fullName)
-			fmt.Printf("\r Dir %d File %d F|%s", dnum, num, fi.Name())
+			fmt.Printf("\r Dir %d File Goroutine %d %d F|%s", dnum, num, runtime.NumGoroutine(), fi.Name())
 		}
 	}
 	return nil

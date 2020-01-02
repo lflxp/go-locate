@@ -252,7 +252,7 @@ func AddKeyValueBatch(key, value string, wg *sync.WaitGroup) error {
 	return Db.Batch(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(db))
 		err := b.Put([]byte(key), []byte(value))
-		wg.Done()
+		defer wg.Done()
 		return err
 	})
 }

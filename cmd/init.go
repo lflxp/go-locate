@@ -25,7 +25,9 @@ import (
 )
 
 var (
-	initPath string
+	initPath  string
+	gonum     int
+	timesleep int
 )
 
 // initCmd represents the init command
@@ -38,7 +40,7 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		err := pkg.GetAllFile(initPath)
+		err := pkg.GetAllFile(initPath, gonum, timesleep)
 		if err != nil {
 			log.Errorln(err.Error())
 		}
@@ -65,4 +67,6 @@ func init() {
 	}
 
 	initCmd.Flags().StringVarP(&initPath, "path", "p", home, "扫描路径，默认：~/")
+	initCmd.Flags().IntVarP(&gonum, "go", "g", 900000, "最大并发goroutine数量")
+	initCmd.Flags().IntVarP(&timesleep, "timesleep", "T", 500, "携程最大等待时间 单位：ms")
 }

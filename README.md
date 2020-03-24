@@ -5,6 +5,8 @@
 1. cobra cli
 2. zsh/bash completions
 3. refresh/searchall/searchPrefix
+4. use linux kernel monitor file change
+5. use one or three index for search file
 
 #### Description
 Go version locate application and BBolt database storage
